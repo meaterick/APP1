@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'  as http;
 
-const apiKey =  "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";
+const apiKey =  "";
 const apiUrl = 'https://api.openai.com/v1/completions';
 
 void main() {
