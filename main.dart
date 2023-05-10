@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'  as http;
 
-const apiKey =  "";
+const apiKey =  "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";
 const apiUrl = 'https://api.openai.com/v1/completions';
 
 void main() {
@@ -15,7 +15,7 @@ Future<String> generateText(String prompt) async {
     headers: {'Content-Type': 'application/json','Authorization': 'Bearer $apiKey'},
     body: jsonEncode({
       "model": "text-davinci-003",
-      'prompt': prompt,
+      'prompt': prompt + "",
       'max_tokens': 1000,
       'temperature': 0,
       'top_p': 1,
@@ -77,19 +77,23 @@ class _MyHomePageState extends State<MyHomePage> {
                             decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.black,
                                     width: 1.0,
                                   )
                               ),
                               suffixIcon: GestureDetector(
                                 onTap: () {
-                                  String InputText = controller.text.toString();
-                                  dynamic outputText = Future.delayed(Duration(seconds: 1), () => InputText);
+                                  setState(() {
+                                    String InputText = controller.text.toString();
+                                    Future<String> data = generateText(InputText);
+                                    data.then((value) {
+                                      OutputText = value;
+                                    });
+                                  });
                                 },
-                                child: Icon(Icons.search),
+                                child: const Icon(Icons.search),
                               ),
-                              labelText: "Input",
                             ),
                           ),
                         ),
@@ -103,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Padding(
                     child: Text(
                       OutputText,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                       ),
                     ),
