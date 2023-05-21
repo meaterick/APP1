@@ -7,7 +7,7 @@ import 'package:dart_openai/openai.dart';
   static const _model = 'gpt-3.5-turbo';
 
   ChatApi() {
-    OpenAI.apiKey = "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";
+    OpenAI.apiKey = "";
   }
 
   Future<String> completeChat(List<ChatMessage> messages, {bool isCounselor = false}) async {
